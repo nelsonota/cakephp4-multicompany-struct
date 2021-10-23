@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  web:
+    image: php7-comanda
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - epd-network
+    container_name: portal-crawler
+    volumes:
+      - c:/src/crawlers/portal:/var/www/html
+  db:
+    image: postgres:12.3
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - epd-network
+    container_name: db-crawler
+    volumes:
+      - c:/src/data/pgdata_epd:/var/lib/postgresql/data
+networks: 
+  epd-network:
+    driver: bridge
