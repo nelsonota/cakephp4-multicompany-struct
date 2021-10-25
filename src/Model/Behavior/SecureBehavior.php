@@ -21,10 +21,10 @@ class SecureBehavior extends Behavior
             {
                 $entity->set($prefix.'_usua_codigo', $_SESSION['Auth']->usua_codigo);
             }
-            $current_empr_codigo = $entity->get($prefix.'_empr_codigo');
-            if (empty($current_empr_codigo) && isset($_SESSION['Auth']->perf_perfil->perf_empr_codigo))
+            $current_clie_codigo = $entity->get($prefix.'_clie_codigo');
+            if (empty($current_clie_codigo) && isset($_SESSION['Auth']->usua_clie_codigo))
             {
-                $entity->set($prefix.'_empr_codigo', $_SESSION['Auth']->perf_perfil->perf_empr_codigo);
+                $entity->set($prefix.'_clie_codigo', $_SESSION['Auth']->usua_clie_codigo);
             }
         } else {
             $entity->set($prefix.'_modified', date('Y-m-d H:i:s'));
@@ -37,9 +37,9 @@ class SecureBehavior extends Behavior
         $alias = $event->getSubject()->getRegistryAlias();
         $schema = $event->getSubject()->getSchema();
         
-        if ($schema->getColumn($prefix.'_empr_codigo')) {
-            if (isset($_SESSION) && isset($_SESSION['Auth']->perf_perfil->perf_empr_codigo)) {
-                $query->where([$alias.'.'.$prefix.'_empr_codigo' => $_SESSION['Auth']->perf_perfil->perf_empr_codigo]);
+        if ($schema->getColumn($prefix.'_clie_codigo')) {
+            if (isset($_SESSION) && isset($_SESSION['Auth']->usua_clie_codigo)) {
+                $query->where([$alias.'.'.$prefix.'_clie_codigo' => $_SESSION['Auth']->usua_clie_codigo]);
             }
         }
     }
